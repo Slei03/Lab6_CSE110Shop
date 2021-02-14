@@ -15,6 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   var usedIds = JSON.parse(localStorage.getItem("used"));
 
+  console.log(storedProducts);
   document.getElementById("cart-count").textContent = Number(usedIds.length);
   for(i in storedProducts){
     let curProduct = storedProducts[i];
