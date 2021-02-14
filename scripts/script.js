@@ -5,11 +5,18 @@ window.addEventListener('DOMContentLoaded', () => {
   if(localStorage.getItem("products")===null){
     fetch("https://fakestoreapi.com/products")
       .then(response => response.json())
-      .then(data => localStorage.setItem("products", JSON.stringify(data)));
+      .then(data => localStorage.setItem("products", JSON.stringify(data)))
+      .then(nextStep());
+  }else{
+    nextStep();
   }
+});
+
+function nextStep(){
   var storedProducts = JSON.parse(localStorage.getItem("products"));  
   var productList = document.getElementById("product-list");
 
+  console.log(storedProducts);
   if(localStorage.getItem("used")===null){
     localStorage.setItem("used", JSON.stringify([]));
   }
@@ -22,5 +29,4 @@ window.addEventListener('DOMContentLoaded', () => {
     p.setValues(curProduct, usedIds);
     productList.appendChild(p);
   }
-
-});
+}
