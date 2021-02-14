@@ -1,5 +1,5 @@
 // product-item.js
-
+var used = JSON.parse(localStorage.getItem("used"));
 class ProductItem extends HTMLElement {
   // TODO
   constructor(){
@@ -75,7 +75,7 @@ class ProductItem extends HTMLElement {
     <img src="" alt="" width=200>
     <p class="title"></p>
     <p class="price"></p>
-    <button id="" onclick="clickFunction(this)">Add to Cart</button>
+    <button id="" onclick="clickFunction(this)"></button>
     </li>`;
 
     super();
@@ -91,7 +91,12 @@ class ProductItem extends HTMLElement {
     productItem.querySelector(".price").textContent = "$"+newProduct.price;
     productItem.querySelector("img").src = newProduct.image;
     productItem.querySelector("img").alt =newProduct.title;
-    productItem.querySelector("button").id=newProduct.id;
+    productItem.querySelector("button").id =newProduct.id;
+    if(!used.includes(String(newProduct.id))){
+      productItem.querySelector("button").innerHTML = "Add to Cart";
+    }else{
+      productItem.querySelector("button").innerHTML = "Remove from Cart";
+    }
   }
 
 }
@@ -103,9 +108,16 @@ function clickFunction(curButton){
     alert('Added to Cart!');
     document.getElementById("cart-count").textContent = Number(document.getElementById("cart-count").textContent)+1;
     curButton.innerHTML = "Remove from Cart";
+    used.push(curButton.id);
+    localStorage.setItem("used", JSON.stringify(used));
   }
   else{
     document.getElementById("cart-count").textContent = Number(document.getElementById("cart-count").textContent)-1;
     curButton.innerHTML = "Add to Cart";
+    const index = used.indexOf(curButton.id);
+    if(index>-1){
+      used.splice(index,1);
+    }
+    localStorage.setItem("used", JSON.stringify(used));
   }
 }
