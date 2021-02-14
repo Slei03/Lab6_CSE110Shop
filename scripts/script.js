@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
     fetch("https://fakestoreapi.com/products")
       .then(response => response.json())
       .then(data => localStorage.setItem("products", JSON.stringify(data)))
-      .then(data => storedProducts = data);
+      .then(data => storedProducts = JSON.parse(JSON.stringify(data)));
 
   }else{
     storedProducts = JSON.parse(localStorage.getItem("products"));  
