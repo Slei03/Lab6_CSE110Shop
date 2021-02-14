@@ -2,12 +2,16 @@
 
 window.addEventListener('DOMContentLoaded', () => {
   // TODO
+  var storedProducts;
   if(localStorage.getItem("products")===null){
     fetch("https://fakestoreapi.com/products")
       .then(response => response.json())
-      .then(data => localStorage.setItem("products", JSON.stringify(data)));
+      .then(data => localStorage.setItem("products", JSON.stringify(data)))
+      .then(data => storedProducts = data);
+
+  }else{
+    storedProducts = JSON.parse(localStorage.getItem("products"));  
   }
-  var storedProducts = JSON.parse(localStorage.getItem("products"));  
   var productList = document.getElementById("product-list");
 
   if(localStorage.getItem("used")===null){
