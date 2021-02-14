@@ -9,8 +9,9 @@ window.addEventListener('DOMContentLoaded', () => {
       .then(data => {
         storedProducts = data;
         localStorage.setItem("products", JSON.stringify(data))});
+  }else{
+    storedProducts = JSON.parse(localStorage.getItem("products"));  
   }
-  var storedProducts = JSON.parse(localStorage.getItem("products"));  
   
   var productList = document.getElementById("product-list");
 
