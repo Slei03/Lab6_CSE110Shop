@@ -75,7 +75,7 @@ class ProductItem extends HTMLElement {
     <img src="" alt="" width=200>
     <p class="title"></p>
     <p class="price"></p>
-    <button onclick="clickFunction()">Add to Cart</button>
+    <button id="" onclick="clickFunction(this)">Add to Cart</button>
     </li>`;
 
     super();
@@ -91,14 +91,21 @@ class ProductItem extends HTMLElement {
     productItem.querySelector(".price").textContent = "$"+newProduct.price;
     productItem.querySelector("img").src = newProduct.image;
     productItem.querySelector("img").alt =newProduct.title;
+    productItem.querySelector("button").id=newProduct.id;
   }
 
 }
 
 customElements.define('product-item', ProductItem);
 
-function clickFunction(){
-  alert('Added to Cart!');
-  this.innerHTML = "Remove from Cart";
-  document.getElementById("cart-count").textContent = Number(document.getElementById("cart-count").textContent)+1;
+function clickFunction(curButton){
+  if(curButton.innerHTML == "Add to Cart"){
+    alert('Added to Cart!');
+    document.getElementById("cart-count").textContent = Number(document.getElementById("cart-count").textContent)+1;
+    curButton.innerHTML = "Remove from Cart";
+  }
+  else{
+    document.getElementById("cart-count").textContent = Number(document.getElementById("cart-count").textContent)-1;
+    curButton.innerHTML = "Add to Cart";
+  }
 }
