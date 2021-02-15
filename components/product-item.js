@@ -1,5 +1,4 @@
 // product-item.js
-var used = JSON.parse(localStorage.getItem("used"));
 class ProductItem extends HTMLElement {
   // TODO
   constructor(){
@@ -85,6 +84,7 @@ class ProductItem extends HTMLElement {
   }
 
   setValues(newProduct){
+    var used = JSON.parse(localStorage.getItem("used"));
     let shadow = this.shadowRoot;
     let productItem = shadow.lastChild;
     productItem.querySelector(".title").textContent = newProduct.title;
@@ -92,6 +92,8 @@ class ProductItem extends HTMLElement {
     productItem.querySelector("img").src = newProduct.image;
     productItem.querySelector("img").alt =newProduct.title;
     productItem.querySelector("button").id =newProduct.id;
+    console.log(newProduct.id);
+    console.log(used);
     if(!used.includes(String(newProduct.id))){
       productItem.querySelector("button").innerHTML = "Add to Cart";
     }else{
@@ -104,6 +106,7 @@ class ProductItem extends HTMLElement {
 customElements.define('product-item', ProductItem);
 
 function clickFunction(curButton){
+  var used = JSON.parse(localStorage.getItem("used"));
   if(curButton.innerHTML == "Add to Cart"){
     alert('Added to Cart!');
     document.getElementById("cart-count").textContent = Number(document.getElementById("cart-count").textContent)+1;
